@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CURIO — Explore</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+</head>
+
+<body>
+    {% include 'partials/nav.html' %}
+
+    <div id="container">
+        <div id="main">
+            <div id="content"></div>
+            <div id="meta_data"></div>
+        </div>
+        <div id="explore_trigger"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='post-notify.js') }}"></script>
+    <script src="{{ url_for('static', filename='nav.js') }}"></script>
+    <script src="{{ url_for('static', filename='home.js') }}"></script>
+</body>
+
+</html>

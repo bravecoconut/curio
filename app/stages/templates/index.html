@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link id="stylesheet" rel="stylesheet" href="{{ url_for('static', filename='css/style_dark.css') }}">
+</head>
+
+<body>
+    <div id="library"></div>
+
+    <div id="main">
+        <div id="post">
+            <p id="no_comment">
+                no post selected.
+            </p>
+        </div>
+
+        <div id="start_button" onclick=startMan.start()>Create</div>
+    </div>
+
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+
+</html>

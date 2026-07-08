@@ -1,0 +1,46 @@
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+cookies.txt
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# Local MongoDB bundle and data files
+mongodb_local/
+
+# User-generated and runtime assets
+rage/post/*
+!rage/post/.gitkeep
+app/assets/profile/*
+!app/assets/profile/.gitkeep
+
+# Pipeline runtime snapshots
+data/json/latest_topics.json
+
+# IDE and OS
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

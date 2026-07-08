@@ -1,0 +1,37 @@
+# CURIO — Python backend dependencies
+# Install: python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
+
+# Web framework
+flask>=3.0.0
+flask-cors>=4.0.0
+
+# Database (MongoDB + ODM)
+pymongo>=4.6.0
+beanie>=1.25.0
+motor>=3.3.0
+
+# Validation
+pydantic[email]>=2.0.0
+
+# Authentication and user provisioning
+bcrypt>=4.1.0
+coolname>=2.0.0
+pydenticon>=0.3.1
+
+# Image processing
+Pillow>=10.0.0
+
+# AI / LLM
+openai>=1.0.0
+huggingface-hub>=0.20.0
+
+# Web scraping and research
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+ddgs>=9.0.0
+
+# Configuration
+python-dotenv>=1.0.0
+
+#others
+flask[async]

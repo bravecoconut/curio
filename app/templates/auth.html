@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CURIO — Sign In</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">
+
+    <!-- <link rel="stylesheet" href="auth.css"> -->
+</head>
+
+<body>
+
+
+    <div id="authContainer">
+        <div id="authBox">
+            <div id="hero">
+                <h1>CURIO</h1>
+                <p>Content Using Research &amp; Intelligent Output</p>
+            </div>
+
+            <div id="authEmail">
+                <input type="text" name="" id="emailInput" placeholder="email">
+            </div>
+
+            <div id="authPassword">
+                <input type="password" name="" id="passwordInput" placeholder="password">
+            </div>
+
+            <div id="authContinue">Continue</div>
+
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='auth.js') }}"></script>
+    <!-- <div id="errorModal">
+        <h3>Error</h3>
+        <p id="errorDescription">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eos tenetur consectetur
+            ducimus doloribus? Unde, totam.</p>
+    </div> -->
+    <!-- <script src="auth.js"></script> -->
+
+</body>
+
+</html>

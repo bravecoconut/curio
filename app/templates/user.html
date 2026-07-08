@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ username }} — CURIO</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user.css') }}">
+</head>
+
+<body>
+    {% include 'partials/nav.html' %}
+
+    <div id="container">
+        <div id="profileHeader">
+            <div id="headerProfileAvatar">
+                <img id="avatarImg" src="" alt="profile avatar">
+
+
+            </div>
+
+            <div id="profileInfo">
+                <h1 id="profileUsername"></h1>
+                <p id="profileName"></p>
+
+                {% if is_own_profile %}
+                <div id="profileActionsMaster">
+                    <button id="createNewPostButton" type="button">create new post</button>
+                </div>
+                {% endif %}
+
+                <div id="profileActions">
+                    <button id="shareLinkBtn" type="button">share</button>
+                    {% if is_own_profile %}
+                    <button id="logoutBtn" type="button">logout</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div id="postsSection">
+            <h2>posts</h2>
+            <div id="postsGrid"></div>
+            <div id="postsTrigger"></div>
+            <div id="noPosts" class="hidden">no posts yet</div>
+        </div>
+    </div>
+
+    <script>
+        window.PROFILE_USERNAME = {{ username | tojson }};
+        window.IS_OWN_PROFILE = {{ is_own_profile | tojson }};
+    </script>
+    <script src="{{ url_for('static', filename='post-notify.js') }}"></script>
+    <script src="{{ url_for('static', filename='nav.js') }}"></script>
+    <script src="{{ url_for('static', filename='user.js') }}"></script>
+</body>
+
+</html>

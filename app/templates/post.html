@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post — CURIO</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='post.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+</head>
+
+<body>
+    {% include 'partials/nav.html' %}
+
+    <div id="container">
+        <div id="main">
+            <div id="content">
+                <img id="postImage" src="" alt="post image">
+            </div>
+
+            <div id="meta_data">
+                <div id="postInfo">
+                    <div id="postProfileView">
+                        <div id="postProfileImage">
+                            <img id="ownerAvatar" src="" alt="profile avatar">
+                        </div>
+                        <div id="postProfileUsername">
+                            <p id="ownerUsername"></p>
+                        </div>
+                    </div>
+
+                    <div id="postDetails">
+                        <div id="postInfoViews">
+                            <img src="{{ url_for('static', filename='assets/views.svg') }}" alt="views">
+                            <span id="postViews"></span>
+                        </div>
+                        <div id="posttimeAgo">
+                            <img src="{{ url_for('static', filename='assets/ago.svg') }}" alt="posted">
+                            <span id="postTimeAgo"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="postActions">
+                    <button id="shareLinkBtn" type="button">copy post link</button>
+                    {% if is_own_post %}
+                    <button id="privacyToggle" type="button">private: off</button>
+                    {% endif %}
+                </div>
+
+                <div id="postFact">
+                    <p id="postFactText"></p>
+                </div>
+
+                <div id="postResearch">
+                    <div id="postResearchText"></div>
+                </div>
+
+                {% if not_found %}
+                <div id="postNotFound">this post is private or does not exist</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.POST_ID = {{ post_id | tojson }};
+        window.IS_OWN_POST = {{ is_own_post | tojson }};
+        window.POST_NOT_FOUND = {{ not_found | default(false) | tojson }};
+    </script>
+    <script src="{{ url_for('static', filename='post-notify.js') }}"></script>
+    <script src="{{ url_for('static', filename='nav.js') }}"></script>
+    <script src="{{ url_for('static', filename='post.js') }}"></script>
+</body>
+
+</html>
