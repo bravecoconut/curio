@@ -37,7 +37,7 @@ Originally a local post-creation pipeline, CURIO has evolved into a full multi-u
 
 ### Demo Video
 
-<video src="documentation/assets/video.mp4" controls width="100%">
+<video src="documentations/assets/video.mp4" controls width="100%">
 Your browser does not support the video tag.
 </video>
 
