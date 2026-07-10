@@ -40,8 +40,7 @@ def choose_single_topic(topics):
         
         "OUTPUT MANDATE:\n"
         "1. Provide your step-by-step analytical reasoning path explaining why the chosen fact represents the most meme-worthy and interesting topic.\n"
-        "2. Your absolute final line of generation text must follow this exact format: 'WINNER_INDEX: [number]'.\n"
-        "Example final line: WINNER_INDEX: 3"
+        "2. Your absolute final line of generation text must follow this exact format: 'WINNER_INDEX: [number]' where [number] is the selected index.\n"
     )
 
 

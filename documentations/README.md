@@ -22,6 +22,7 @@ CURIO is an AI-powered SaaS platform that discovers trending facts, researches t
 | 10 | [Project Structure](./10-project-structure.md) | Repository layout and module map |
 | 11 | [Deployment](./11-deployment.md) | Production deployment guidance |
 | 12 | [SaaS Features](./12-saas-features.md) | Multi-user, quotas, explore feed, and profiles |
+| 13 | [Image Generation API](./13-image-generation-api.md) | Self-hosted image generation API specification |
 
 ---
 

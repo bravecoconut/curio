@@ -13,7 +13,7 @@ Copy `.env.example` to `.env` in the project root.
 | `BASE_URL` | Yes | Base URL of your OpenAI-compatible LLM provider (no trailing slash) |
 | `API_KEY` | Yes | API key for the LLM provider |
 | `RESONNING_MODEL` | Yes | Model name for chat completions |
-| `HF_TOKEN` | Yes | Hugging Face API token for image generation |
+| `IMAGE_MODEL_BASE_URL` | Yes | Self-hosted image generation API endpoint |
 
 ### Example `.env`
 
@@ -21,7 +21,7 @@ Copy `.env.example` to `.env` in the project root.
 BASE_URL=https://openrouter.ai/api
 API_KEY=sk-or-v1-xxxxxxxx
 RESONNING_MODEL=anthropic/claude-3.5-sonnet
-HF_TOKEN=hf_xxxxxxxx
+IMAGE_MODEL_BASE_URL=http://localhost:5000/generate
 ```
 
 ---
@@ -33,7 +33,7 @@ HF_TOKEN=hf_xxxxxxxx
 | `BASE_URL` | Stages 2, 3, 4, 5 | `OpenAI(base_url=f"{BASE_URL}/v1")` |
 | `API_KEY` | Stages 2, 3, 4, 5 | LLM authentication |
 | `RESONNING_MODEL` | Stages 2, 3, 4, 5 | Model identifier in `chat.completions.create()` |
-| `HF_TOKEN` | Stage 5 | `InferenceClient(token=HF_TOKEN)` |
+| `IMAGE_MODEL_BASE_URL` | Stage 5 | Self-hosted image generation API endpoint |
 
 All LLM stages call `load_dotenv()` at module import time.
 
@@ -60,19 +60,18 @@ All stages use **streaming** completions.
 
 ---
 
-## Hugging Face Configuration
+## Image Generation API Configuration
 
-**Model:** `black-forest-labs/FLUX.1-schnell`
+CURIO requires a self-hosted image generation API endpoint. The API must accept POST requests with a JSON body containing a `prompt` field and return a JSON response with a base64-encoded image.
 
-**Client:**
+**Required API Specification:**
 
-```python
-from huggingface_hub import InferenceClient
-client = InferenceClient(token=HF_TOKEN)
-image = client.text_to_image(prompt, model="black-forest-labs/FLUX.1-schnell")
-```
+- **Endpoint:** Configured via `IMAGE_MODEL_BASE_URL`
+- **Method:** POST
+- **Request Body:** `{"prompt": "...", "format": "json"}`
+- **Response:** `{"image_base64": "...", "seed": 123, "model": "..."}`
 
-Ensure your Hugging Face account has inference access to this model.
+See [Image Generation API](./13-image-generation-api.md) for complete specification and reference implementation.
 
 ---
 
@@ -144,7 +143,7 @@ sudo apt install fonts-dejavu-core
 | Fact source | `https://www.thefactsite.com/daily-facts/` | Edit `search_topic.py` |
 | DuckDuckGo | Via `ddgs` library | No config needed |
 | LLM API | `{BASE_URL}/v1` | `.env` |
-| Hugging Face | Inference API | `.env` |
+| Image Generation API | `{IMAGE_MODEL_BASE_URL}` | `.env` |
 
 ---
 
@@ -169,4 +168,5 @@ Changes take effect on next pipeline run (no restart required if using file relo
 
 - [Getting Started](./03-getting-started.md)
 - [Content Pipeline](./04-content-pipeline.md)
+- [Image Generation API](./13-image-generation-api.md)
 - [Deployment](./11-deployment.md)

@@ -44,7 +44,7 @@
 | **Database** | MongoDB 4.4+ with Beanie ODM |
 | **Auth** | bcrypt password hashing, HTTP-only session cookies |
 | **LLM** | OpenAI Python SDK (OpenAI-compatible endpoint) |
-| **Image gen** | Hugging Face InferenceClient (FLUX.1-schnell) |
+| **Image gen** | Self-hosted API endpoint (via `IMAGE_MODEL_BASE_URL`) |
 | **Image edit** | Pillow (PIL) |
 | **Scraping** | requests, BeautifulSoup4, DuckDuckGo (ddgs) |
 | **Frontend** | Server-rendered Jinja2 templates + vanilla JavaScript |

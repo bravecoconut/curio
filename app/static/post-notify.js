@@ -1,3 +1,5 @@
+// app/static/post-notify.js
+
 let postNotifyRegistration = null;
 
 const initPostNotify = async () => {
@@ -5,7 +7,7 @@ const initPostNotify = async () => {
 
     try {
         postNotifyRegistration = await navigator.serviceWorker.register(
-            "/post-notify-sw.js",
+            "/static/post-notify-sw.js",
             { scope: "/" }
         );
         return postNotifyRegistration;
@@ -35,8 +37,8 @@ const requestPostNotificationPermission = async () => {
 const startCreatePost = async ({ onStart, onError } = {}) => {
     const hasPermission = await requestPostNotificationPermission();
     if (!hasPermission) {
-        onError?.("Allow notifications to get alerted when your post is ready");
-        return false;
+        console.warn("Notification permission not granted, proceeding without notifications");
+        // Don't return false - allow post creation even without notifications
     }
 
     if (!postNotifyRegistration?.active) {
@@ -52,6 +54,7 @@ const startCreatePost = async ({ onStart, onError } = {}) => {
         return false;
     }
 
+    console.log("Sending CREATE_POST message to service worker");
     activeWorker.postMessage({ type: "CREATE_POST" });
     return true;
 };
@@ -85,9 +88,21 @@ window.fallbackCreatePost = fallbackCreatePost;
 document.addEventListener("DOMContentLoaded", () => {
     initPostNotify();
 
+    // Handle messages from service worker
     navigator.serviceWorker?.addEventListener("message", (event) => {
-        if (event.data?.type === "OPEN_POST" && event.data.postId) {
-            window.location.href = `/${event.data.postId}`;
+        const { type, postId, error, message } = event.data || {};
+
+        if (type === "LOG") {
+            console.log(message);
+        } else if (type === "CREATE_POST_STARTED") {
+            console.log("Post creation started");
+        } else if (type === "POST_CREATED") {
+            console.log(`Post created successfully: ${postId}`);
+            // Let page-specific handlers decide what to do (redirect, reload, etc.)
+        } else if (type === "CREATE_POST_ERROR") {
+            console.error("Post creation error:", error);
+        } else if (type === "OPEN_POST" && postId) {
+            window.location.href = `/${postId}`;
         }
     });
 });

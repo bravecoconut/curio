@@ -28,7 +28,7 @@ Originally a local post-creation pipeline, CURIO has evolved into a full multi-u
 - Python 3.12+
 - MongoDB 4.4+ running on `localhost:27017`
 - OpenAI-compatible LLM API key
-- Hugging Face token (for FLUX image generation)
+- Self-hosted image generation API (see [Image Generation API](documentations/13-image-generation-api.md))
 
 ### Setup
 
@@ -58,7 +58,7 @@ Open **http://localhost:5000** → sign up with any email and password → creat
 | `BASE_URL` | OpenAI-compatible LLM provider base URL |
 | `API_KEY` | LLM API key |
 | `RESONNING_MODEL` | Model name for chat completions |
-| `HF_TOKEN` | Hugging Face token for image generation |
+| `IMAGE_MODEL_BASE_URL` | Self-hosted image generation API endpoint |
 
 See [`.env.example`](.env.example) for a template.
 
@@ -71,7 +71,7 @@ See [`.env.example`](.env.example) for a template.
 | Backend | Python, Flask, Beanie (MongoDB ODM) |
 | Database | MongoDB |
 | LLM | OpenAI-compatible API (topic, caption, research, prompts) |
-| Image gen | Hugging Face FLUX.1-schnell |
+| Image gen | Self-hosted API endpoint (via `IMAGE_MODEL_BASE_URL`) |
 | Image edit | Pillow |
 | Scraping | requests, BeautifulSoup, DuckDuckGo |
 | Frontend | Jinja2 templates, vanilla JavaScript |

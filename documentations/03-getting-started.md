@@ -20,7 +20,7 @@ This guide walks you through running CURIO locally from a fresh clone.
 | `BASE_URL` | OpenAI-compatible LLM | Topic selection, captions, research |
 | `API_KEY` | Same provider | Authentication |
 | `RESONNING_MODEL` | Same provider | Model name for chat completions |
-| `HF_TOKEN` | Hugging Face | FLUX.1-schnell image generation |
+| `IMAGE_MODEL_BASE_URL` | Self-hosted API | Image generation endpoint |
 
 ---
 
@@ -59,7 +59,7 @@ Edit `.env` and set your API credentials:
 BASE_URL=https://your-llm-provider.example.com
 API_KEY=sk-your-key
 RESONNING_MODEL=your-model-name
-HF_TOKEN=hf_your_token
+IMAGE_MODEL_BASE_URL=http://localhost:5000/generate
 ```
 
 ### 5. Start MongoDB
@@ -154,9 +154,15 @@ sudo apt install fonts-dejavu-core
 
 Verify `BASE_URL`, `API_KEY`, and `RESONNING_MODEL` in `.env`. The URL must expose an OpenAI-compatible `/v1/chat/completions` endpoint.
 
-### Hugging Face image generation fails (Stage 5)
+### Image generation fails (Stage 5)
 
-Ensure `HF_TOKEN` is valid and has inference access for `black-forest-labs/FLUX.1-schnell`.
+Ensure `IMAGE_MODEL_BASE_URL` points to a running image generation API that meets the specification in [Image Generation API](./13-image-generation-api.md). Test the endpoint with curl:
+
+```bash
+curl -X POST http://localhost:5000/generate \
+  -H "Content-Type: application/json" \
+  -d '{"prompt": "test", "format": "json"}'
+```
 
 ### Empty explore feed
 
@@ -180,4 +186,5 @@ Usually means no unused topics remain. Clear or trim `data/json/used_topics.json
 
 - [Content Pipeline](./04-content-pipeline.md) — Understand each stage
 - [API Reference](./05-api-reference.md) — Integrate programmatically
+- [Image Generation API](./13-image-generation-api.md) — Set up image generation
 - [Deployment](./11-deployment.md) — Ship to production

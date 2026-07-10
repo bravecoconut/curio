@@ -32,19 +32,6 @@ app = Flask(__name__)
 CORS(app)
 
 
-@app.route("/post-notify-sw.js")
-async def post_notify_sw():
-    response = make_response(
-        send_from_directory(
-            os.path.join(app.root_path, "static"),
-            "post-notify-sw.js",
-            mimetype="application/javascript",
-        )
-    )
-    response.headers["Service-Worker-Allowed"] = "/"
-    response.headers["Cache-Control"] = "no-cache"
-    return response
-
 
 @app.route("/api/auth_service", methods=["POST"])
 async def auth_service():
@@ -104,6 +91,11 @@ async def create_post():
     status_code = 200 if result.get("status") else 400
     return jsonify(result), status_code
 
+@app.route("/static/post-notify-sw.js")
+def post_notify_sw():
+    response = send_from_directory("static", "post-notify-sw.js")
+    response.headers["Service-Worker-Allowed"] = "/"
+    return response
 
 @app.route("/api/get_one_post/<post_id>")
 async def get_one_post(post_id):
@@ -164,6 +156,11 @@ async def get_explore_posts():
 
     explore_posts = await ExplorePosts().get_explore_posts(start=start, end=end)
     explore_posts.pop("from", None)
+
+    # Shuffle posts before sending to frontend
+    if explore_posts.get("status") and "posts" in explore_posts.get("data", {}):
+        import random
+        random.shuffle(explore_posts["data"]["posts"])
 
     status_code = 200 if explore_posts.get("status") else 400
     return jsonify(explore_posts), status_code

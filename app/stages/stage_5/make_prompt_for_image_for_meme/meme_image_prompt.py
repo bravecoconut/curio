@@ -13,10 +13,6 @@ base_url = os.getenv("BASE_URL")
 api_key = os.getenv("API_KEY")
 model = os.getenv("RESONNING_MODEL")
 
-import json
-
-import re
-
 
 def meme_image_prompt_generate(research_data, meme_text, chosen_topic):
     """Return an image-generation prompt describing the post background scene."""
@@ -24,40 +20,29 @@ def meme_image_prompt_generate(research_data, meme_text, chosen_topic):
     error = {"error": None}
 
     try:
-        with open("data/json/characters.json") as file:
-            personalities = json.load(file)
-
-        characters = """"""
-
-        for person in personalities:
-            new_person = f"\"{person['character']}: {person['trope']}\"\n\n"
-            characters += new_person
-
         system_message = "You are an image prompt generator. Follow the instructions in the user message exactly. Output only valid JSON."
 
-        prompt = f"""You are an expert AI image prompt generator for memes.
-            Your task is to create a detailed image generation prompt combining a cartoon character with a realistic environment based on an INTERESTING FACT.
+        prompt = f"""You are an expert AI image prompt engineer.
+            Your task is to create a detailed image generation prompt depicting a realistic scene based on an INTERESTING FACT.
 
             CRITICAL GROUNDING RULE:
             The image must visually depict the scenario described in MEME TEXT.
             However, if MEME TEXT contradicts the FACT DATA, trust the FACT DATA.
-            The environment, objects, and setting must come from the FACT DATA — not just from the character's TV show.
+            The environment, objects, setting, and any subjects must come from the FACT DATA and RESEARCH DATA.
 
             Guidelines:
-            1. Select the character named in MEME TEXT.
-            2. Place them physically inside a real-world or historically accurate scenario matching the FACT DATA and RESEARCH DATA.
-            (e.g. if the fact is about ancient Rome, put them in a historically accurate Roman setting)
-            3. The character reacts to or participates in the reality of the fact.
-            4. Do NOT include canonical show elements if they don't relates to FACT DATA or RESEARCH DATA (Krabby Patties for SpongeBob, Tom chasing Jerry, etc.)
-            or unless the fact data specifically involves those things.
-            5. Keep backgrounds simple. Focus on 6-9 key environmental props from the fact.
+            1. Create a realistic scene matching the FACT DATA and RESEARCH DATA.
+            2. Place subjects (people, animals, objects) physically inside a real-world or historically accurate scenario.
+            3. Subjects should react to or participate in the reality of the fact.
+            4. Do NOT include fictional or cartoon elements unless the fact data specifically involves those things.
+            5. Keep backgrounds simple. Focus on 6-9 key environmental props from the research data.
             6. Include any visual elements that make the absurd fact look hyper-realistic.
+            7. Use photorealistic style with natural lighting and sharp focus.
 
             OUTPUT FORMAT:
             Do NOT include markdown formatting.
             Do NOT include conversational filler like 'Here is the prompt'.
-            
-            Only clear and clean just prompt.
+            Output only clear and clean prompt text.
             """
 
         user_message = f"""# INSTRUCTIONS
@@ -66,10 +51,10 @@ def meme_image_prompt_generate(research_data, meme_text, chosen_topic):
         # CHOSEN TOPIC
         '{chosen_topic}'
 
-        # MEME TEXT (character and action come from here)
+        # MEME TEXT (subject and action come from here)
         '{meme_text}'
 
-        # RESEARCH DATA (use only the location, environment and props relevant to chosen topic)
+        # RESEARCH DATA (use only the location, environment, props, and subjects relevant to chosen topic)
         {research_data}
 
         Output the JSON now. Nothing else."""

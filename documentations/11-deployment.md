@@ -183,7 +183,7 @@ Set via systemd `EnvironmentFile`, Docker secrets, or your cloud provider's secr
 BASE_URL=https://your-llm-provider.example.com
 API_KEY=sk-...
 RESONNING_MODEL=your-model
-HF_TOKEN=hf_...
+IMAGE_MODEL_BASE_URL=http://your-image-api:5000/generate
 ```
 
 ---

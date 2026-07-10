@@ -143,7 +143,7 @@ Loaded from `data/json/characters.json`:
 | Step | Module | Purpose |
 |------|--------|---------|
 | Prompt | `make_prompt_for_image_for_meme/meme_image_prompt.py` | LLM builds scene description |
-| Generate | `make_image_from_prompt/bg_image.py` | Hugging Face FLUX.1-schnell |
+| Generate | `make_image_from_prompt/bg_image.py` | API-based image generation |
 
 ### Image prompt rules
 
@@ -154,11 +154,7 @@ Loaded from `data/json/characters.json`:
 
 ### Model
 
-```
-black-forest-labs/FLUX.1-schnell
-```
-
-Requires `HF_TOKEN` environment variable.
+Uses a self-hosted image generation API endpoint configured via `IMAGE_MODEL_BASE_URL` environment variable. The API accepts JSON with `prompt` and `format` parameters, returning a base64-encoded image.
 
 ---
 

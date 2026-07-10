@@ -237,14 +237,38 @@ const setupOwnProfileActions = () => {
     navigator.serviceWorker?.addEventListener("message", handlePostServiceMessage);
 };
 
-const handlePostCreated = () => {
-    if (isOwnProfile) {
+const handlePostCreated = (postId) => {
+    if (postId) {
+        // Show notification with click handler
+        if ("Notification" in window && Notification.permission === "granted") {
+            const currentUrl = window.location.href;
+            // window.location.href = currentUrl;
+            window.location.href = `/${postId}`;
+            new Notification("Your new post is ready", {
+                body: "ready creation post",
+                icon: "/static/assets/views.svg",
+                tag: `post-${postId}`,
+            }).onclick = () => {
+                window.location.href = `/${postId}`;
+            };
+        } else {
+            // Fallback: redirect directly if no notification permission
+            window.location.href = `/${postId}`;
+        }
+        // Refresh posts grid to show new post
+        if (isOwnProfile) {
+            refreshPosts();
+            console.log(currentUrl); 
+            // Output: "https://example.com"
+        }
+    } else if (isOwnProfile) {
+        // Fallback: reload if no postId but on own profile
         window.location.reload();
     }
 };
 
 const handlePostServiceMessage = (event) => {
-    const { type, error } = event.data || {};
+    const { type, error, postId } = event.data || {};
 
     if (type === "CREATE_POST_STARTED") {
         isCreatingPost = true;
@@ -272,7 +296,7 @@ const handlePostServiceMessage = (event) => {
             createPostBtn.disabled = false;
             createPostBtn.textContent = "create new post";
         }
-        handlePostCreated();
+        handlePostCreated(postId);
     }
 };
 
@@ -292,8 +316,8 @@ const createNewPost = async () => {
         showToast(message);
     };
 
-    const onComplete = () => {
-        handlePostCreated();
+    const onComplete = (postId) => {
+        handlePostCreated(postId);
     };
 
     const resetCreateButton = () => {
@@ -304,27 +328,13 @@ const createNewPost = async () => {
         }
     };
 
-    if (typeof startCreatePost === "function") {
-        const started = await startCreatePost({ onError });
-        if (!started && typeof fallbackCreatePost === "function") {
-            await fallbackCreatePost({
-                onStart,
-                onComplete,
-                onError: (message) => {
-                    resetCreateButton();
-                    onError(message);
-                },
-            });
-        }
-        return;
-    }
-
+    // Use fallback direct fetch instead of service worker for reliability
     if (typeof fallbackCreatePost === "function") {
         await fallbackCreatePost({
             onStart,
-            onComplete: () => {
+            onComplete: (postId) => {
                 resetCreateButton();
-                onComplete();
+                onComplete(postId);
             },
             onError: (message) => {
                 resetCreateButton();
@@ -425,6 +435,15 @@ const loadPosts = async () => {
     } finally {
         isLoadingPosts = false;
     }
+};
+
+const refreshPosts = async () => {
+    posts = [];
+    renderedCount = 0;
+    hasMorePosts = true;
+    isLoadingPosts = false;
+    noPostsEl.classList.add("hidden");
+    await loadPosts();
 };
 
 const postsObserver = new IntersectionObserver(

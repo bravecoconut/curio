@@ -1,3 +1,5 @@
+// app/static/post-notify-sw.js
+
 self.addEventListener("install", (event) => {
     self.skipWaiting();
 });
@@ -19,21 +21,45 @@ const notifyClients = async (message) => {
 
 const handleCreatePost = async () => {
     await notifyClients({ type: "CREATE_POST_STARTED" });
+    await notifyClients({ type: "LOG", message: "Starting fetch to /api/create_post" });
 
     try {
         const response = await fetch("/api/create_post", {
             method: "POST",
             credentials: "include",
+            headers: {
+                'Content-Type': 'application/json',
+            },
         });
-        const result = await response.json();
 
-        if (!response.ok || !result.status) {
-            const error = result.data?.error || "Failed to create post";
+        await notifyClients({ type: "LOG", message: `Fetch response status: ${response.status}` });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            await notifyClients({ type: "LOG", message: `Response not OK: ${errorText}` });
+            await notifyClients({ type: "CREATE_POST_ERROR", error: `HTTP ${response.status}` });
+            return;
+        }
+
+        const result = await response.json();
+        await notifyClients({ type: "LOG", message: `Fetch result: ${JSON.stringify(result)}` });
+
+        if (!result.status) {
+            const error = result.data?.error || result.error || "Failed to create post";
+            await notifyClients({ type: "LOG", message: `Error: ${error}` });
             await notifyClients({ type: "CREATE_POST_ERROR", error });
             return;
         }
 
-        const postId = result.data.new_post;
+        const postId = result.data?.new_post;
+        if (!postId) {
+            await notifyClients({ type: "LOG", message: "No postId in response" });
+            await notifyClients({ type: "CREATE_POST_ERROR", error: "No post ID returned" });
+            return;
+        }
+        
+        location.reload();
+        await notifyClients({ type: "LOG", message: `post id:${postId}` });
 
         await self.registration.showNotification("Your new post is ready", {
             body: "Tap to view your post",
@@ -41,8 +67,10 @@ const handleCreatePost = async () => {
             tag: `post-${postId}`,
         });
 
+        await notifyClients({ type: "LOG", message: "Sending POST_CREATED message" });
         await notifyClients({ type: "POST_CREATED", postId });
     } catch (error) {
+        await notifyClients({ type: "LOG", message: `Fetch error: ${error.message}` });
         await notifyClients({
             type: "CREATE_POST_ERROR",
             error: "Could not create post",
@@ -53,7 +81,21 @@ const handleCreatePost = async () => {
 self.addEventListener("message", (event) => {
     if (event.data?.type !== "CREATE_POST") return;
 
-    event.waitUntil(handleCreatePost());
+    console.log("Service worker received CREATE_POST message");
+    
+    event.waitUntil(
+        (async () => {
+            try {
+                await handleCreatePost();
+            } catch (error) {
+                console.error("Service worker error in handleCreatePost:", error);
+                await notifyClients({
+                    type: "CREATE_POST_ERROR",
+                    error: `Service worker error: ${error.message}`,
+                });
+            }
+        })()
+    );
 });
 
 self.addEventListener("notificationclick", (event) => {

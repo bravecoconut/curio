@@ -16,7 +16,8 @@
     background-color: #ffe1aa;
     border-radius: 40px;
     padding: 24px 28px;
-    max-width: 630px;
+    min-width: 600px;
+    width: fit-content;
 }
 
 #profileAvatar {
@@ -173,7 +174,7 @@
     cursor: pointer;
     padding: 8px 10px;
     border-radius: 10px;
-
+    width: max-content;
 }
 
 #profileName:hover{
