@@ -24,16 +24,11 @@ Originally a local post-creation pipeline, CURIO has evolved into a full multi-u
 
 ## Screenshots
 
-<div align="center">
-
-<img src="documentations/assets/image2.png" alt="Screenshot 2" width="400"/>
-
-<img src="documentations/assets/image3.png" alt="Screenshot 3" width="400"/>
-<img src="documentations/assets/image4.png" alt="Screenshot 4" width="400"/>
-
-<img src="documentations/assets/image5.png" alt="Screenshot 5" width="400"/>
-<img src="documentations/assets/image6.png" alt="Screenshot 6" width="400"/>
-</div>
+![Screenshot 1](documentations/assets/image1.png)
+![Screenshot 2](documentations/assets/image2.png)
+![Screenshot 3](documentations/assets/image3.png)
+![Screenshot 4](documentations/assets/image4.png)
+![Screenshot 5](documentations/assets/image5.png)
 
 ### Demo Video
 
