@@ -2,6 +2,7 @@
 
 **Content Using Research & Intelligent Output**
 
+<img src="documentations/assets/image1.png" alt="Screenshot 1" width="400"/>
 CURIO is an AI-powered SaaS platform that discovers trending facts, researches them across the web, and generates shareable meme posts — complete with captions, AI-generated imagery, and research-backed context.
 
 Originally a local post-creation pipeline, CURIO has evolved into a full multi-user web application with authentication, profiles, an explore feed, search, privacy controls, and usage quotas.
@@ -18,6 +19,26 @@ Originally a local post-creation pipeline, CURIO has evolved into a full multi-u
 - **Search** — Find users by username or posts by keyword
 - **Background creation** — Service worker runs the pipeline and notifies when ready
 - **Usage quotas** — Free-tier post limits per account
+
+---
+
+## Screenshots
+
+<div align="center">
+
+<img src="documentations/assets/image2.png" alt="Screenshot 2" width="400"/>
+
+<img src="documentations/assets/image3.png" alt="Screenshot 3" width="400"/>
+<img src="documentations/assets/image4.png" alt="Screenshot 4" width="400"/>
+
+<img src="documentations/assets/image5.png" alt="Screenshot 5" width="400"/>
+<img src="documentations/assets/image6.png" alt="Screenshot 6" width="400"/>
+
+### Demo Video
+
+https://github.com/user-attachments/assets/video.mp4
+
+</div>
 
 ---
 
