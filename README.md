@@ -36,12 +36,7 @@ Originally a local post-creation pipeline, CURIO has evolved into a full multi-u
 </div>
 
 ### Demo Video
-
-<video src="documentations/assets/video.mp4" controls width="100%">
-Your browser does not support the video tag.
-</video>
-
-
+here is [demo video](documentations/assets/video.mp4)
 ---
 
 ## Quick Start
