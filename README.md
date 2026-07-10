@@ -33,14 +33,14 @@ Originally a local post-creation pipeline, CURIO has evolved into a full multi-u
 
 <img src="documentations/assets/image5.png" alt="Screenshot 5" width="400"/>
 <img src="documentations/assets/image6.png" alt="Screenshot 6" width="400"/>
+</div>
 
 ### Demo Video
-
 
 <video src="documentation/assets/video.mp4" controls width="100%">
 Your browser does not support the video tag.
 </video>
-</div>
+
 
 ---
 
