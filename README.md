@@ -171,12 +171,6 @@ See [Content Pipeline docs](documentations/04-content-pipeline.md) for details.
 
 ---
 
-## License
-
-This project is provided as-is. Add your preferred license before public release.
-
----
-
 ## Contributing
 
 1. Fork the repository
