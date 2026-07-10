@@ -54,7 +54,7 @@ https://github.com/user-attachments/assets/video.mp4
 ### Setup
 
 ```bash
-git clone https://github.com/your-org/curio.git
+git clone https://github.com/bravecoconut/curio.git
 cd curio
 
 python3 -m venv .venv
