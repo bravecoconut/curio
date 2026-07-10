@@ -36,7 +36,9 @@ Originally a local post-creation pipeline, CURIO has evolved into a full multi-u
 </div>
 
 ### Demo Video
+
 here is [demo video](documentations/assets/video.mp4)
+
 ---
 
 ## Quick Start
